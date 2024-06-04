@@ -15,5 +15,7 @@ data class Book(
         joinColumns = [JoinColumn(name = "book_id")],
         inverseJoinColumns = [JoinColumn(name = "author_id")]
     )
-    val authors: MutableList<Author> = mutableListOf()
+    val authors: MutableList<Author> = mutableListOf(),
+    @ManyToOne
+    var publisher: Publisher? = null
 )
