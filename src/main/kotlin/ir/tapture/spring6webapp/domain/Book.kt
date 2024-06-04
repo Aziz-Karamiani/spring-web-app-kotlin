@@ -1,9 +1,6 @@
 package ir.tapture.spring6webapp.domain
 
-import jakarta.persistence.Entity
-import jakarta.persistence.GeneratedValue
-import jakarta.persistence.GenerationType
-import jakarta.persistence.Id
+import jakarta.persistence.*
 
 @Entity
 data class Book(
@@ -11,5 +8,12 @@ data class Book(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = 0,
     val title: String,
-    val isbn: String
+    val isbn: String,
+    @ManyToMany(cascade = [CascadeType.ALL])
+    @JoinTable(
+        name = "author_book",
+        joinColumns = [JoinColumn(name = "book_id")],
+        inverseJoinColumns = [JoinColumn(name = "author_id")]
+    )
+    val authors: MutableList<Author> = mutableListOf()
 )
